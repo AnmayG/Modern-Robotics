@@ -373,17 +373,20 @@ class RobotController:
         J = self.get_jacobian(M_0e, Blist, configuration, T_b0)
         Jpinv = scipy.linalg.pinv(J, 0.000001)
         # Jpinv = scipy.linalg.pinv(J)
-        if is_printing: print(f"config: {configuration}\n"
-                              f"t: {timestep}\n"
-                              f"Xd:\n{T_se_d}\n"
-                              f"Xd_next:\n{T_se_d_next}\n"
-                              f"X:\n{T_se}\n"
-                              f"Kp:\n{K_p}\n"
-                              f"Ki:\n{K_i}\n"
-                              f"X_err: {Xerr}\n"
-                              f"V: {command}\n"
-                              f"J:\n{J}\n"
-                              f"(u, theta):\n{Jpinv @ command}")
+        if is_printing:
+            # np.set_printoptions(precision=1)
+            print(f"config: {configuration}\n"
+                  f"t: {timestep}\n"
+                  f"Xd:\n{T_se_d}\n"
+                  f"Xd_next:\n{T_se_d_next}\n"
+                  f"X:\n{T_se}\n"
+                  f"Kp: {K_p}\n"
+                  f"Ki: {K_i}\n"
+                  f"X_err: {Xerr}\n"
+                  f"V: {command}\n"
+                  f"J:\n{J}\n"
+                  f"(u, theta):\n{Jpinv @ command}")
+            np.set_printoptions(precision=4)
         return Xerr, Jpinv @ command
 
     # In order to avoid any file writing errors after run we need to close the file
