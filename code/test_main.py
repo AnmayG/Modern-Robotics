@@ -74,7 +74,8 @@ class TestRobotController(TestCase):
                                                T_sc_final,
                                                T_ce_grasp,
                                                T_ce_standoff,
-                                               1)
+                                               1,
+                                               True)
         controller.end()
 
     def test_feedback_control(self):
@@ -90,10 +91,11 @@ class TestRobotController(TestCase):
                             [-1, 0, 0, 0.3],
                             [0, 0, 0,    1]])
 
-        X       = np.array([[ 0.170, 0, 0.985, 0.387],
-                            [     0, 1,     0,     0],
-                            [-0.985, 0, 0.170, 0.570],
-                            [     0, 0,     0,     1]])
+        X = np.array([[ 0.170, 0, 0.985, 0.387],
+                      [     0, 1,     0,     0],
+                      [-0.985, 0, 0.170, 0.570],
+                      [     0, 0,     0,     1]])
+
 
         # Fixed offset from the chassis frame {b} to the base frame of the arm {0}
         T_b0 = np.array([[1, 0, 0, 0.1662],
@@ -113,6 +115,9 @@ class TestRobotController(TestCase):
                           [0, -1, 0, -0.2176,     0, 0],
                           [0,  0, 1,       0,     0, 0]]).T
 
-        q  = controller.feedback_control(X, Xd, Xd_next, np.eye(6), np.eye(6), 0.01, M_0e, Blist, config, T_b0, False)
-
+        print("\nZeros\n")
+        q  = controller.feedback_control(X, Xd, Xd_next, 0, 0, 0.01, M_0e, Blist, config, T_b0, np.zeros(6), True)
+        print("\nIdentity Matrix:\n")
+        q  = controller.feedback_control(X, Xd, Xd_next, np.eye(6), np.eye(6), 0.01, M_0e, Blist, config, T_b0, np.zeros(6), True)
         controller.end()
+
