@@ -547,7 +547,7 @@ class RobotController:
         self.csvfile.close()
 
 if __name__ == '__main__':
-    output_directory = "../results/best"
+    output_directory = "../results/newTask"
 
     ###################################################################################################################
     #======================================== Robot Transformation Matrices ==========================================#
@@ -639,8 +639,8 @@ if __name__ == '__main__':
 
 
     # Coefficients for feedback control
-    k_p = 9.25 # Overshoot: k_p =  New Task: k_p =
-    k_i = 3.75 # Overshoot: k_i =  New Task: k_i =
+    k_p = 9.25 # Best: k_p = 9.25 Overshoot: k_p = 2.25
+    k_i = 3.75 # Best: k_i = 3.75 Overshoot: k_i = 1.75
 
     if not printing_trajectory:
         # Open a file for logging
